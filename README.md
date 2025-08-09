@@ -1,2 +1,3 @@
-# chess-0X
-A simple, fun and interactive 3d chess game.
+# CHESS-OX
+
+A fun and interactive 3D Chess video game.
