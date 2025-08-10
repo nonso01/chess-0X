@@ -1,17 +1,21 @@
 {
-  "name": "chess-0x",
-  "version": "0.1.0",
+  "name": "server",
+  "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nonso Martin",
   "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^17.2.1",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

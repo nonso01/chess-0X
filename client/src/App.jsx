@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <div>CHESS-OX</div>
+      <h1 className="read-the-docs">Welcome to CHESS-0X</h1>
     </>
   );
 }
