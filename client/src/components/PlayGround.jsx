@@ -42,7 +42,7 @@ function ChessModel({ url }) {
     if (e.object) {
       const objectName = e.object.name || "Unnamed Object";
       log(`Clicked object: ${objectName}`);
-      log(e.object);
+      // log(e.object);
     }
   }
 
@@ -92,7 +92,7 @@ export default function PlayGround() {
             shadow-normalBias={0.05}
           />
 
-          <ChessModel url={rock} />
+          <ChessModel url={king} />
         </Suspense>
         <OrbitControls
           enableDamping
