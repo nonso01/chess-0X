@@ -1,11 +1,14 @@
 import { useState } from "react";
+import PlayGround from "./components/PlayGround";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <h1 className="read-the-docs">Welcome to CHESS-0X</h1>
+      <h1 className="read-the-docs">Welcome to chess-0X</h1>
+
+      <PlayGround />
     </>
   );
 }

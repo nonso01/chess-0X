@@ -24,3 +24,7 @@ h4,
 h5 {
   font-family: "Bricolage Grotesque", system-ui;
 }
+
+.debbug {
+  border: 2px solid red;
+}
