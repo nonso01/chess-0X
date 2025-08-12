@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import PlayGround from "./components/PlayGround";
-import { use } from "react";
 
 const log = console.log;
 
@@ -28,8 +27,6 @@ function App() {
         socket.disconnect();
       };
     }, []);
-
-    return msg;
   }
 
   handleSocketConnection();
@@ -37,7 +34,6 @@ function App() {
   return (
     <>
       <h1 className="read-the-docs">Welcome to chess-0X</h1>
-
       <PlayGround />
     </>
   );

@@ -12,13 +12,15 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-import king from "/chess-pieces/chess-0x-king.glb?url";
-import qween from "/chess-pieces/chess-0x-qween.glb?url";
-import bishop from "/chess-pieces/chess-0x-bishop.glb?url";
-import knight from "/chess-pieces/chess-0x-knight.glb?url";
-import rock from "/chess-pieces/chess-0x-rock.glb?url";
-import pawn from "/chess-pieces/chess-0x-pawn.glb?url";
-import board from "/chess-pieces/chess-0x-board.glb?url";
+import king from "../assets/chess-pieces/chess-0x-king.glb";
+import qween from "../assets/chess-pieces/chess-0x-qween.glb";
+import bishop from "../assets/chess-pieces/chess-0x-bishop.glb";
+import knight from "../assets/chess-pieces/chess-0x-knight.glb";
+import rock from "../assets/chess-pieces/chess-0x-rock.glb";
+import pawn from "../assets/chess-pieces/chess-0x-pawn.glb";
+import board from "../assets/chess-pieces/chess-0x-board.glb";
+
+import brownPhotoStudio from "../assets/hdr/brown_photostudio_02_1k.hdr";
 
 const log = console.log;
 const BG_COLOR = 0x222222;
@@ -77,12 +79,12 @@ export default function PlayGround() {
         performance={{ min: 0.5, max: 1 }}
       >
         <Suspense fallback={<Loader />}>
-          <Environment files="/hdr/brown_photostudio_02_1k.hdr" background />
+          <Environment files={brownPhotoStudio} background />
           <Stats showPanel={false} />
 
           <directionalLight
             castShadow
-            intensity={3}
+            intensity={2}
             position={[0, 5, 10]}
             shadow-mapSize-width={1024}
             shadow-mapSize-height={1024}
@@ -92,13 +94,13 @@ export default function PlayGround() {
             shadow-normalBias={0.05}
           />
 
-          <ChessModel url={king} />
+          <ChessModel url={board} />
         </Suspense>
         <OrbitControls
           enableDamping
           enablePan={false}
           minDistance={0.15}
-          maxDistance={0.2}
+          maxDistance={.5}
           maxPolarAngle={Math.PI / 2}
           makeDefault
         />
