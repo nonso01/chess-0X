@@ -9,12 +9,14 @@ dotenv.config();
 const log = console.log;
 const port = process.env.PORT || 5000;
 
+const clientOrigins = ["http://localhost:5173", "https://chess-0x.vercel.app/"];
+
 const app = express();
 const server = http.createServer(app);
 // test only
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: clientOrigins,
     methods: ["GET", "POST"],
     credentials: "true",
   },
@@ -22,7 +24,7 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: clientOrigins,
     methods: ["GET", "POST"],
     credentials: "true",
   })

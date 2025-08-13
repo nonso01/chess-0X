@@ -121,7 +121,7 @@ function PieceSet({ squareWorldPositions, yOffset = 0.0, pieceScale = 1 }) {
   const { positions } = squareWorldPositions;
 
   const COLORS = {
-    white: 0xC1C1B9,
+    white: 0xc1c1b9,
     black: 0x111011,
   };
 
@@ -177,7 +177,7 @@ export default function PlayGround() {
   const [squareWorldPositions, setSquareWorldPositions] = useState(null);
 
   return (
-    <div style={{ width: "500px", height: "500px" }}>
+    <div style={{ width: "300px", height: "300px" }}>
       <Canvas
         shadows
         dpr={[1, 2]}
@@ -204,8 +204,8 @@ export default function PlayGround() {
 
         <OrbitControls
           enablePan={false}
-          minDistance={0.2}
-          maxDistance={1}
+          minDistance={0.3}
+          maxDistance={0.7}
           maxPolarAngle={Math.PI / 2}
         />
       </Canvas>

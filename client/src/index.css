@@ -28,3 +28,8 @@ h5 {
 .debbug {
   border: 2px solid red;
 }
+
+#root {
+  display: grid;
+  place-content: center;
+}
