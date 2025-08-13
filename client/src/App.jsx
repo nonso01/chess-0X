@@ -4,9 +4,11 @@ import PlayGround from "./components/PlayGround";
 
 const log = console.log;
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
   const [msg, setMsg] = useState("");
-  
+
   function handleSocketConnection() {
     useEffect(() => {
       const socket = io("http://localhost:3000");

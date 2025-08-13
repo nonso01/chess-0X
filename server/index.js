@@ -4,7 +4,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const dotenv = require("dotenv");
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const log = console.log;
 const port = process.env.PORT || 5000;

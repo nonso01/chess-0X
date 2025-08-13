@@ -121,7 +121,7 @@ function PieceSet({ squareWorldPositions, yOffset = 0.0, pieceScale = 1 }) {
   const { positions } = squareWorldPositions;
 
   const COLORS = {
-    white: 0xa7aea8,
+    white: 0xC1C1B9,
     black: 0x111011,
   };
 

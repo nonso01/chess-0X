@@ -27,8 +27,8 @@ dist-ssr
 *.env
 
 # gltf models
-chess-pieces
-hdr
+# chess-pieces
+# hdr
 
 examples.md
 
