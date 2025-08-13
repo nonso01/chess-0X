@@ -9,7 +9,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-// models
+// models, we also have low polys in chess-pieces-low
 import king from "../assets/chess-pieces/chess-0x-king.glb";
 import queen from "../assets/chess-pieces/chess-0x-queen.glb";
 import bishop from "../assets/chess-pieces/chess-0x-bishop.glb";
@@ -182,6 +182,7 @@ export default function PlayGround() {
         shadows
         dpr={[1, 2]}
         camera={{ fov: 50, near: 0.1, far: 1000, position: [0, 8, 10] }}
+        frameloop="demand"
       >
         <Suspense fallback={<Loader />}>
           <Environment files={brownPhotoStudio} background />

@@ -9,7 +9,7 @@ dotenv.config();
 const log = console.log;
 const port = process.env.PORT || 5000;
 
-const clientOrigins = ["http://localhost:5173", "https://chess-0x.vercel.app"];
+const devOrigin = "http://localhost:5173";
 
 // for prod
 const clientOrigin = "https://chess-0x.vercel.app";
