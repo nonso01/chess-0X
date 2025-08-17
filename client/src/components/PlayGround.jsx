@@ -188,7 +188,7 @@ export default function PlayGround() {
           <Environment files={brownPhotoStudio} background />
           <directionalLight
             castShadow
-            intensity={2}
+            intensity={3}
             position={[5, 10, 5]}
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
@@ -205,6 +205,7 @@ export default function PlayGround() {
 
         <OrbitControls
           enablePan={false}
+          dampingFactor={0.1}
           minDistance={0.4}
           maxDistance={0.7}
           rotateSpeed={0.5}
