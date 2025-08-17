@@ -205,7 +205,7 @@ export default function PlayGround() {
 
         <OrbitControls
           enablePan={false}
-          dampingFactor={0.1}
+          dampingFactor={0.2}
           minDistance={0.4}
           maxDistance={0.7}
           rotateSpeed={0.5}
