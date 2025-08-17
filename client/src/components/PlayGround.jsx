@@ -177,18 +177,18 @@ export default function PlayGround() {
   const [squareWorldPositions, setSquareWorldPositions] = useState(null);
 
   return (
-    <div style={{ width: "300px", height: "300px" }}>
+    <div style={{ width: "340px", height: "340px" }}>
       <Canvas
         shadows
         dpr={[1, 2]}
-        camera={{ fov: 50, near: 0.1, far: 1000, position: [0, 8, 10] }}
+        camera={{ fov: 50, near: 0.01, far: 500, position: [0, 8, 10] }}
         frameloop="demand"
       >
         <Suspense fallback={<Loader />}>
           <Environment files={brownPhotoStudio} background />
           <directionalLight
             castShadow
-            intensity={3}
+            intensity={2}
             position={[5, 10, 5]}
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
@@ -205,8 +205,9 @@ export default function PlayGround() {
 
         <OrbitControls
           enablePan={false}
-          minDistance={0.3}
+          minDistance={0.4}
           maxDistance={0.7}
+          rotateSpeed={0.5}
           maxPolarAngle={Math.PI / 2}
         />
       </Canvas>

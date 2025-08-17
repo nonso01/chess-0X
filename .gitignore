@@ -28,6 +28,7 @@ dist-ssr
 
 # gltf models
 chess-pieces-low
+*-old.glb
 # hdr
 
 examples.md
