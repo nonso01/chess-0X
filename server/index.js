@@ -19,7 +19,7 @@ const server = http.createServer(app);
 // test only
 const io = new Server(server, {
   cors: {
-    origin: devOrigin,
+    origin: clientOrigin,
     methods: ["GET", "POST"],
     credentials: "true",
   },
@@ -27,7 +27,7 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: devOrigin,
+    origin: clientOrigin,
     methods: ["GET", "POST"],
     credentials: "true",
   })

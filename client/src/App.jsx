@@ -12,11 +12,11 @@ function App() {
 
   function handleSocketConnection() {
     useEffect(() => {
-      const socket = io(devURL);
+      const socket = io(API_URL);
 
       socket.on("connect", () => {
         log(`connected to server with id:${socket?.id}`);
-         setMsg(socket?.id);
+        setMsg(socket?.id);
       });
       socket.on("disconnect", () => {
         log("disconnected from the server");
@@ -36,7 +36,6 @@ function App() {
 
   return (
     <>
-      {/* <h1 className="read-the-docs">Welcome to chess-0X</h1> */}
       <h1 className="underline font-heading font-bold">Testing Chess-0X</h1>
       <p>welcome user: {msg ? msg : "loading.."}</p>
       <PlayGround />
