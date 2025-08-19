@@ -1,0 +1,5 @@
+#!/bin/bash
+# this script will be used to run code for production
+# confirm that desired production environments are set
+
+echo "Let's run the production code"

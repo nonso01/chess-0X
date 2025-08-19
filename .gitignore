@@ -28,6 +28,11 @@ dist-ssr
 
 # gltf models
 chess-pieces-low
+
+#revert if errors
+chess-pieces-old
+
+# remove this board
 *-old.glb
 # hdr
 

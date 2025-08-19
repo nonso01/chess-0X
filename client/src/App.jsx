@@ -12,7 +12,7 @@ function App() {
 
   function handleSocketConnection() {
     useEffect(() => {
-      const socket = io(API_URL);
+      const socket = io(devURL);
 
       socket.on("connect", () => {
         log(`connected to server with id:${socket?.id}`);
@@ -37,7 +37,7 @@ function App() {
   return (
     <>
       {/* <h1 className="read-the-docs">Welcome to chess-0X</h1> */}
-      <h1>TESTS....</h1>
+      <h1 className="underline font-heading font-bold">Testing Chess-0X</h1>
       <p>welcome user: {msg ? msg : "loading.."}</p>
       <PlayGround />
     </>

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, Suspense, useMemo } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
   useGLTF,
@@ -9,7 +9,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-// models, we also have low polys in chess-pieces-low
+// models
 import king from "../assets/chess-pieces/chess-0x-king.glb";
 import queen from "../assets/chess-pieces/chess-0x-queen.glb";
 import bishop from "../assets/chess-pieces/chess-0x-bishop.glb";
@@ -18,9 +18,15 @@ import rook from "../assets/chess-pieces/chess-0x-rook.glb";
 import pawn from "../assets/chess-pieces/chess-0x-pawn.glb";
 import board from "../assets/chess-pieces/chess-0x-board.glb";
 
-import brownPhotoStudio from "../assets/hdr/brown_photostudio_02_1k.hdr";
+// textures
+import whiteColor from "../assets/chess-theme-wood/white/user-white-color.jpg";
+import blackColor from "../assets/chess-theme-wood/black/user-black-color.jpg";
+import pieceRoughness from "../assets/chess-theme-wood/user-roughness.jpg";
+import pieceNormal from "../assets/chess-theme-wood/user-normal.jpg";
+import pieceAO from "../assets/chess-theme-wood/user-occlusion.jpg";
 
-const log = console.log;
+// HDR
+import brownPhotoStudio from "../assets/hdr/brown_photostudio_02_1k.hdr";
 
 const FIND_SQUARE_POS = /^[a-h][1-8]$/i;
 const LOWER_CASE_CODE = 97;
@@ -34,35 +40,80 @@ function Loader() {
   );
 }
 
-/* ChessModel now wraps the cloned model inside a group.
-   rotation is applied to the group (array [x,y,z] in radians).
-*/
+// Preload textures once & memoize materials
+function useChessMaterials() {
+  const [wColor, bColor, pRoughness, pNormal, pAO] = useLoader(
+    THREE.TextureLoader,
+    [whiteColor, blackColor, pieceRoughness, pieceNormal, pieceAO]
+  );
+
+  // flip / colorSpace setup
+  [wColor, bColor].forEach((t) => {
+    t.flipY = false;
+    if ("colorSpace" in t) t.colorSpace = THREE.SRGBColorSpace;
+    else t.encoding = THREE.sRGBEncoding;
+  });
+  [pRoughness, pNormal, pAO].forEach((t) => {
+    t.flipY = false;
+    if ("colorSpace" in t) t.colorSpace = THREE.NoColorSpace;
+    else t.encoding = THREE.LinearEncoding;
+  });
+
+  const makeMat = (map) =>
+    new THREE.MeshStandardMaterial({
+      map,
+      roughnessMap: pRoughness,
+      normalMap: pNormal,
+      aoMap: pAO,
+      aoMapIntensity: 0.75,
+      roughness: 1,
+      metalness: 0,
+    });
+
+  const whiteMat = useMemo(
+    () => makeMat(wColor),
+    [wColor, pRoughness, pNormal, pAO]
+  );
+  const blackMat = useMemo(
+    () => makeMat(bColor),
+    [bColor, pRoughness, pNormal, pAO]
+  );
+
+  return { whiteMat, blackMat };
+}
+
+/* ChessModel: apply shared baked materials */
 function ChessModel({
   url,
-  worldPosition = null,
-  color = 0xffffff,
+  worldPosition,
+  color,
   scale = 1,
   rotation = [0, 0, 0],
+  materials,
 }) {
   const { scene } = useGLTF(url);
-
-  // clone once per model for performance
   const clone = useMemo(() => scene.clone(true), [scene]);
 
-  // apply lightweight material override
   useEffect(() => {
     clone.traverse((c) => {
       if (c.isMesh) {
-        c.material = new THREE.MeshStandardMaterial({
-          color,
-          roughness: 0.2,
-          metalness: 0.05,
-        });
+        c.material?.dispose();
+        c.material =
+          color === 0xc1c1b9 ? materials.whiteMat : materials.blackMat;
         c.castShadow = true;
         c.receiveShadow = true;
+
+        // ensure aoMap uses UV2
+        if (
+          c.geometry &&
+          c.geometry.attributes.uv &&
+          !c.geometry.attributes.uv2
+        ) {
+          c.geometry.setAttribute("uv2", c.geometry.attributes.uv);
+        }
       }
     });
-  }, [clone, color]);
+  }, [clone, color, materials]);
 
   const pos = worldPosition
     ? worldPosition instanceof THREE.Vector3
@@ -72,25 +123,23 @@ function ChessModel({
 
   return (
     <group position={pos} rotation={rotation} scale={scale}>
-      {/* primitive inside group so group's transform is applied cleanly */}
       <primitive object={clone} />
     </group>
   );
 }
 
-// Board component (unchanged behaviour)
 function BoardModel({ setSquareWorldPositions }) {
   const { scene } = useGLTF(board);
   const ref = useRef();
 
+  // added because of frameloop"demand" in Canvas
+  const { invalidate } = useThree();
+
   useEffect(() => {
     if (!ref.current) return;
 
-    // Make board meshes receive shadows
     ref.current.traverse((c) => {
-      if (c.isMesh) {
-        c.receiveShadow = true;
-      }
+      if (c.isMesh) c.receiveShadow = true;
     });
 
     ref.current.updateMatrixWorld(true);
@@ -110,21 +159,22 @@ function BoardModel({ setSquareWorldPositions }) {
     }
 
     setSquareWorldPositions({ positions, squareSize });
-  }, [setSquareWorldPositions, scene]);
+    invalidate();
+  }, [setSquareWorldPositions, scene, invalidate]);
 
   return <primitive ref={ref} object={scene} />;
 }
 
-// PieceSet: rotate black knights 90deg on Z
-function PieceSet({ squareWorldPositions, yOffset = 0.0, pieceScale = 1 }) {
+function PieceSet({
+  squareWorldPositions,
+  yOffset = 0.0,
+  pieceScale = 1,
+  materials,
+}) {
   if (!squareWorldPositions) return null;
   const { positions } = squareWorldPositions;
 
-  const COLORS = {
-    white: 0xc1c1b9,
-    black: 0x111011,
-  };
-
+  const COLORS = { white: 0xc1c1b9, black: 0x111011 };
   const backRank = [rook, knight, bishop, queen, king, bishop, knight, rook];
 
   const placements = [
@@ -168,6 +218,7 @@ function PieceSet({ squareWorldPositions, yOffset = 0.0, pieceScale = 1 }) {
         color={color}
         scale={pieceScale}
         rotation={rotation}
+        materials={materials}
       />
     );
   });
@@ -175,9 +226,10 @@ function PieceSet({ squareWorldPositions, yOffset = 0.0, pieceScale = 1 }) {
 
 export default function PlayGround() {
   const [squareWorldPositions, setSquareWorldPositions] = useState(null);
+  const materials = useChessMaterials();
 
   return (
-    <div style={{ width: "340px", height: "340px" }}>
+    <div className="play-ground" style={{ width: "340px", height: "340px" }}>
       <Canvas
         shadows
         dpr={[1, 2]}
@@ -188,18 +240,17 @@ export default function PlayGround() {
           <Environment files={brownPhotoStudio} background />
           <directionalLight
             castShadow
-            intensity={3}
-            position={[5, 10, 5]}
+            intensity={4}
+            position={[5, 10, 15]}
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
           />
-
           <BoardModel setSquareWorldPositions={setSquareWorldPositions} />
-
           <PieceSet
             squareWorldPositions={squareWorldPositions}
             yOffset={0.0}
             pieceScale={1}
+            materials={materials}
           />
         </Suspense>
 
