@@ -2,7 +2,11 @@
   border: 2px solid red;
 }
 
-#root {
+/* #root {
   display: grid;
   place-content: center;
+} */
+
+.debbug {
+  border: 2px solid red;
 }

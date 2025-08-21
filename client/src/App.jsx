@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
-import PlayGround from "./components/PlayGround";
+// import PlayGround from "./components/PlayGround";
+import Welcome from "./components/ui/Welcome";
 
 const log = console.log;
 
@@ -36,9 +37,12 @@ function App() {
 
   return (
     <>
-      <h1 className="underline font-heading font-bold">Testing Chess-0X</h1>
-      <p>welcome user: {msg ? msg : "loading.."}</p>
-      <PlayGround />
+      <div
+        className="chess-0x w-dvw h-dvh bg-(--main-page-color)"
+        id="chess-0x"
+      >
+        <Welcome />
+      </div>
     </>
   );
 }
