@@ -5,7 +5,7 @@ export default function Welcome() {
         Play Chess
         <br />
         Like Never Before
-        <br /> chess-0X
+        {/* <br /> . */}
       </h1>
     </div>
   );

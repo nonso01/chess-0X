@@ -1,11 +1,6 @@
-.debbug {
-  border: 2px solid red;
+html {
+  overflow-x: hidden;
 }
-
-/* #root {
-  display: grid;
-  place-content: center;
-} */
 
 .debbug {
   border: 2px solid red;

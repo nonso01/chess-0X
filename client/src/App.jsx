@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy } from "react";
 import { io } from "socket.io-client";
 // import PlayGround from "./components/PlayGround";
 import Welcome from "./components/ui/Welcome";
@@ -7,6 +7,9 @@ const log = console.log;
 
 const API_URL = import.meta.env.VITE_API_URL;
 const devURL = "http://localhost:3000";
+
+// const PlayGround = lazy(() => import("./components/PlayGround"));
+// const Welcome = lazy(() => import("./components/ui/Welcome"));
 
 function App() {
   const [msg, setMsg] = useState("");
@@ -38,10 +41,11 @@ function App() {
   return (
     <>
       <div
-        className="chess-0x w-dvw h-dvh bg-(--main-page-color)"
+        className="chess-0x w-dvw min-h-dvh bg-(--main-page-color)"
         id="chess-0x"
       >
         <Welcome />
+        {/* <PlayGround /> */}
       </div>
     </>
   );

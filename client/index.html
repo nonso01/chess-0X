@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/images/chess-0x.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/chess-0x.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
@@ -25,86 +26,18 @@
     <!-- update the url for final prodcution -->
     <meta property="og:type" content="website" />
     <link rel="stylesheet" href="./src/styles/dev.css" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <!-- fetch models/use cdn for prod -->
-    <!-- <link
-      rel="preload"
-      href="./src/assets/chess-pieces/chess-0x-bishop.glb"
-      as="fetch"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-pieces/chess-0x-king.glb"
-      as="fetch"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-pieces/chess-0x-knight.glb"
-      as="fetch"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-pieces/chess-0x-rook.glb"
-      as="fetch"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-pieces/chess-0x-queen.glb"
-      as="fetch"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-pieces/chess-0x-pawn.glb"
-      as="fetch"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-pieces/chess-0x-board.glb"
-      as="fetch"
-      crossorigin="anonymous"
-    /> -->
 
-    <!-- fetch textures/ use cdn for prod -->
-    <!-- <link
-      rel="preload"
-      href="./src/assets/chess-theme-wood/black/user-black-color.jpg"
-      as="image"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-theme-wood/white/user-white-color.jpg"
-      as="image"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-theme-wood/user-normal.jpg"
-      as="image"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-theme-wood/user-occlusion.jpg"
-      as="image"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href="./src/assets/chess-theme-wood/user-roughness.jpg"
-      as="image"
-      crossorigin="anonymous"
-    /> -->
-    <title>Play Chess Like Never before</title>
+    <title>Play chess in 3D</title>
   </head>
   <body>
-    <div id="root" class="min-w-dvw min-h-dvh"></div>
+    <div id="root" class="w-dvw min-h-dvh bg-(--main-page-color)"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
