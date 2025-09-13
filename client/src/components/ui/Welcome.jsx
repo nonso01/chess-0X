@@ -4,7 +4,7 @@ export default function Welcome() {
       <h1 className="text-stone-900 font-heading text-6xl font-extrabold md:text-8xl xl:text-9xl">
         Play Chess
         <br />
-        Like Never Before
+        Like Never Before.
         {/* <br /> . */}
       </h1>
     </div>

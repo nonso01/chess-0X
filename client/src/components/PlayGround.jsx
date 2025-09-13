@@ -224,12 +224,12 @@ function PieceSet({
   });
 }
 
-export default function PlayGround() {
+export default function PlayGround({ width = 340, height = 340 }) {
   const [squareWorldPositions, setSquareWorldPositions] = useState(null);
   const materials = useChessMaterials();
 
   return (
-    <div className="play-ground" style={{ width: "340px", height: "340px" }}>
+    <div className="play-ground" style={{ width, height }}>
       <Canvas
         shadows
         dpr={[1, 2]}

@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000;
 
 const devOrigin = "http://localhost:5173";
 
-// for prod
+// for prod you might consider using an env
 const clientOrigin = "https://chess-0x.vercel.app";
 
 const app = express();
